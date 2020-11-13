@@ -84,7 +84,7 @@ class Chunk:
     
     def get_light(self, x, y):
         """Get light at given position in chunk bounds"""
-        if 0 <= x < self.world.CHUNK_WIDTH and 0 <= y < self.world.CHUNK_HEIGHT:
+        if 0 <= x < CHUNK_WIDTH and 0 <= y < CHUNK_HEIGHT:
             return self.shadow.light_grid[y][x]
     
     def set_light(self, x, y, value):

@@ -36,8 +36,6 @@ def genworld():
 
 
 class World:
-    CHUNK_WIDTH = 10
-    CHUNK_HEIGHT = 7
 
     instance = None
     
@@ -57,13 +55,13 @@ class World:
         
         self.blocks_data = {}
 
-        chunks_x = GRID_WIDTH // self.CHUNK_WIDTH
-        chunks_y = GRID_HEIGHT // self.CHUNK_HEIGHT
+        chunks_x = GRID_WIDTH // CHUNK_WIDTH
+        chunks_y = GRID_HEIGHT // CHUNK_HEIGHT
 
         self.chunks = [[Chunk(
             self,
-            (x*self.CHUNK_WIDTH, y*self.CHUNK_HEIGHT),
-            (self.CHUNK_WIDTH*CELL_WIDTH, self.CHUNK_HEIGHT*CELL_HEIGHT)) for x in range(chunks_x)] for y in range(chunks_y)]
+            (x*CHUNK_WIDTH, y*CHUNK_HEIGHT),
+            (CHUNK_WIDTH*CELL_WIDTH, CHUNK_HEIGHT*CELL_HEIGHT)) for x in range(chunks_x)] for y in range(chunks_y)]
 
     def update_chunks(self):
         for line in self.chunks:
@@ -96,12 +94,12 @@ class World:
 
     def get_chunk_position(self, x, y):
         """Chunk position in chunks matrix"""
-        return (x // self.CHUNK_WIDTH, y // self.CHUNK_HEIGHT)
+        return (x // CHUNK_WIDTH, y // CHUNK_HEIGHT)
     
     def localize_position(self, x, y):
         """Converts global world's position to chunk's local"""
         c_pos = self.get_chunk_position(x, y)
-        c_pos = c_pos[0] * self.CHUNK_WIDTH, c_pos[1] * self.CHUNK_HEIGHT
+        c_pos = c_pos[0] * CHUNK_WIDTH, c_pos[1] * CHUNK_HEIGHT
 
         return x - c_pos[0], y - c_pos[1]
 
@@ -110,8 +108,8 @@ class World:
         if not self.within_bounds(x, y):
             return
 
-        x //= self.CHUNK_WIDTH
-        y //= self.CHUNK_HEIGHT
+        x //= CHUNK_WIDTH
+        y //= CHUNK_HEIGHT
 
         return self.chunks[y][x]
 
